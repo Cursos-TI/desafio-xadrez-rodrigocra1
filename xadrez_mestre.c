@@ -1,10 +1,13 @@
 #include <stdio.h>
 
-/* Criado no vscode do pc local e copiado para o codespace.
-Nesse desafio procurei utilizar os 3 tipos de loop para a execução das tarefas */
-int torre(casas);
-int rainha(casas);
-int cavalo(void);
+// Foram criadas as funções abaixo para melhor organização do código.
+
+int torre(casas); // Funcao do movimento da torre
+int rainha(casas); // Funcao do movimento da rainha
+int bispo(diagn); // Funcao do movimento do bispo
+int menu_cavalo1(int *direction); // Imprime o menu dinamico do movimento do cavalo.
+int menu_cavalo2(int *direction); // Imprime o menu dinamico do movimento do cavalo.
+int cavalo(void); // Funcao do movimento do cavalo
 int main(void)
 {
     // Declaracao de variaves para uso nos loops
@@ -30,14 +33,13 @@ int main(void)
         torre(quant);
         break;
     }
-    case 2: // Case do movimento do bispo               // FAZENDO O BISPO ---------------------------------------------
-    { 
-        casas = 0; // Estabelecendo a variavel que sofrerá acrescimo
-        do
-        {
-            printf("Direita, Cima\n");
-            casas++;
-        } while (casas < 5);                      
+    case 2: // Case do movimento do bispo
+    {
+        int quant = 0;
+        printf("Quantas casas? ");
+        scanf("%i", &quant);
+
+        bispo(quant);
         break;
     }
     case 3: // Case do movimento da rainha
@@ -49,9 +51,9 @@ int main(void)
         rainha(quant);
         break;
     }
-    case 4:
+    case 4: // Movimento do cavalo.
     {
-        cavalo();
+        cavalo(); // direciona à função própria do movimento do cavalo.
         break;
     }
     default: // Default impede entrada de input invalido.
@@ -63,12 +65,12 @@ int main(void)
     }
 }
 
-int cavalo(void)
+int cavalo(void) // movimento do cavalo
 {
-    int direction[2];
+    int direction[2];  // variaveis arrays e pointers para facilitar o fluxo.
     char *direction_move[2];
 
-    printf("Digite a direção do movimento do cavalo:\n");
+    printf("Digite a direção do movimento do cavalo:\n"); // menu interativo do movimento
     printf("1. Cima\n");
     printf("2. Baixo\n");
     printf("3. Esquerda\n");
@@ -78,34 +80,22 @@ int cavalo(void)
     if (direction[0] == 1)
     {
         direction_move[0] = "Cima";
-        printf("Digite a segunda direção do movimento do cavalo:\n");
-        printf("3. Esquerda\n");
-        printf("4. Direita\n");
-        scanf("%d", &direction[1]);
+        menu_cavalo1(direction);
     }
     if (direction[0] == 2)
     {
         direction_move[0] = "Baixo";
-        printf("Digite a segunda direção do movimento do cavalo:\n");
-        printf("3. Esquerda\n");
-        printf("4. Direita\n");
-        scanf("%d", &direction[1]);
+        menu_cavalo1(direction);
     }
     if (direction[0] == 3)
     {
         direction_move[0] = "Esquerda";
-        printf("Digite a segunda direção do movimento do cavalo:\n");
-        printf("1. Cima\n");
-        printf("2. Baixo\n");
-        scanf("%d", &direction[1]);
+        menu_cavalo2(direction);
     }
     if (direction[0] == 4)
     {
         direction_move[0] = "Direita";
-        printf("Digite a segunda direção do movimento do cavalo:\n");
-        printf("1. Cima\n");
-        printf("2. Baixo\n");
-        scanf("%d", &direction[1]);
+        menu_cavalo2(direction);
     }
 
     if (direction[1] == 1)
@@ -126,25 +116,20 @@ int cavalo(void)
     }
     printf("\n");
 
-    int casas = 0;
-    do
+    int casas = 0; // Executa o movimento do cavalo após a escolha da direção pelo usuário.
+    for (int i = 0; i <= 2 && casas < 2; i++, casas++)
     {
-        for (int i = 0; i < 2; i++)
-        {
-            printf("%s\n", direction_move[0]);
-            casas++;
-        }
-    } while (casas == 1);
+        printf("%s\n", direction_move[0]);
+    }
 
     printf("%s\n", direction_move[1]);
 }
 
-int torre(casas)
+int torre(casas) // Funcao do movimento da torre
 {
-    if (casas > 8)
+    if (casas > 8) // impede input do usuário maior que o tamanho do tabuleiro.
     {
-        printf("O tabuleiro só tem 8 casas!\n");
-        return 0;
+        printf("O tabuleiro só tem 8 casas!\n"); 
     }
     if (casas > 0)
     {
@@ -153,11 +138,11 @@ int torre(casas)
     }
 }
 
-int rainha(casas)
+int rainha(casas) // Funcao do movimento da rainha
 {
-    if (casas > 8)
+    if (casas > 8) // impede input do usuário maior que o tamanho do tabuleiro.
     {
-        printf("O tabuleiro só tem 8 casas!\n");
+        printf("O tabuleiro só tem 8 casas!\n"); 
         return 0;
     }
 
@@ -166,4 +151,34 @@ int rainha(casas)
         printf("Esquerda\n");
         rainha(casas - 1);
     }
+}
+
+int bispo(diagn) // Funcao do movimento do bispo
+{
+    int casas = 0; // Estabelecendo a variavel que sofrerá acrescimo
+    do
+    {
+        for (int i = 0; i < diagn; i++)
+            ;
+        {
+            printf("Direita\n");
+        }
+        printf("Cima\n");
+        casas++;
+    } while (casas < diagn);
+}
+
+int menu_cavalo1(int *direction) // menu dinamico do cavalo
+{
+    printf("Digite a segunda direção do movimento do cavalo:\n");
+    printf("3. Esquerda\n");
+    printf("4. Direita\n");
+    scanf("%d", &direction[1]);
+}
+int menu_cavalo2(int *direction)  // menu dinamico do cavalo
+{
+    printf("Digite a segunda direção do movimento do cavalo:\n");
+    printf("1. Cima\n");
+    printf("2. Baixo\n");
+    scanf("%d", &direction[1]);
 }
