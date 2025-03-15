@@ -2,9 +2,9 @@
 
 // Foram criadas as funções abaixo para melhor organização do código.
 
-int torre(casas); // Funcao do movimento da torre
-int rainha(casas); // Funcao do movimento da rainha
-int bispo(diagn); // Funcao do movimento do bispo
+int torre(int casas); // Funcao do movimento da torre
+int rainha(int casas); // Funcao do movimento da rainha
+int bispo(int diagn); // Funcao do movimento do bispo
 int menu_cavalo1(int *direction); // Imprime o menu dinamico do movimento do cavalo.
 int menu_cavalo2(int *direction); // Imprime o menu dinamico do movimento do cavalo.
 int cavalo(void); // Funcao do movimento do cavalo
@@ -125,7 +125,7 @@ int cavalo(void) // movimento do cavalo
     printf("%s\n", direction_move[1]);
 }
 
-int torre(casas) // Funcao do movimento da torre
+int torre(int casas) // Funcao do movimento da torre
 {
     if (casas > 8) // impede input do usuário maior que o tamanho do tabuleiro.
     {
@@ -138,7 +138,7 @@ int torre(casas) // Funcao do movimento da torre
     }
 }
 
-int rainha(casas) // Funcao do movimento da rainha
+int rainha(int casas) // Funcao do movimento da rainha
 {
     if (casas > 8) // impede input do usuário maior que o tamanho do tabuleiro.
     {
@@ -153,7 +153,7 @@ int rainha(casas) // Funcao do movimento da rainha
     }
 }
 
-int bispo(diagn) // Funcao do movimento do bispo
+int bispo(int diagn) // Funcao do movimento do bispo
 {
     int casas = 0; // Estabelecendo a variavel que sofrerá acrescimo
     do
